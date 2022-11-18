@@ -49,7 +49,7 @@ function App() {
       <Table
         data={adjectivesDefinit}
         cols={adjectivesCols}
-        rows={artikelRows}
+        rows={adjectivesRows}
         checked={checked}
         show={show}
       />
