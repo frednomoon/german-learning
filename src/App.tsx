@@ -1,15 +1,16 @@
-import { useCallback, useRef, useState } from "react"
+import { useState } from "react"
 import Table from "./components/Table"
 import { Button } from "@mantine/core"
 import useSubscription from "./utils/useSubscription"
 
 function App() {
   const [checked, setChecked] = useState(false)
-
   const [subToShowAnswers, showAnswersEvent] = useSubscription()
   const [subToReset, resetEvent] = useSubscription()
+
   return (
     <div className='mx-8 my-6'>
+      <h1>German Grammar Memory Training</h1>
       <Button
         variant='outline'
         className='my-2 mr-2'
@@ -36,8 +37,8 @@ function App() {
         Clear Answers
       </Button>
 
+      <h2 className='mt-4'>Artikels</h2>
       <Table
-        id='1'
         data={artikels}
         cols={artikelCols}
         rows={artikelRows}
@@ -45,8 +46,8 @@ function App() {
         subToShowAnswers={subToShowAnswers}
         subToReset={subToReset}
       />
+      <h2 className='mt-4'>Pronouns</h2>
       <Table
-        id='2'
         data={pronouns}
         cols={pronounCols}
         rows={artikelRows}
@@ -54,24 +55,31 @@ function App() {
         subToShowAnswers={subToShowAnswers}
         subToReset={subToReset}
       />
-      <Table
-        id='3'
-        data={adjectivesIndefinit}
-        cols={adjectivesCols}
-        rows={adjectivesRows}
-        checked={checked}
-        subToShowAnswers={subToShowAnswers}
-        subToReset={subToReset}
-      />
-      <Table
-        id='4'
-        data={adjectivesDefinit}
-        cols={adjectivesCols}
-        rows={adjectivesRows}
-        checked={checked}
-        subToShowAnswers={subToShowAnswers}
-        subToReset={subToReset}
-      />
+      <h2 className='mt-4'>Adjective endings</h2>
+      <div className='grid grid-cols-2'>
+        <div>
+          <h3>Indefinit - ein & *ein (singular)</h3>
+          <Table
+            data={adjectivesIndefinit}
+            cols={adjectivesCols}
+            rows={adjectivesRows}
+            checked={checked}
+            subToShowAnswers={subToShowAnswers}
+            subToReset={subToReset}
+          />
+        </div>
+        <div>
+          <h3>Definit - der & *ein (plural)</h3>
+          <Table
+            data={adjectivesDefinit}
+            cols={adjectivesCols}
+            rows={adjectivesRows}
+            checked={checked}
+            subToShowAnswers={subToShowAnswers}
+            subToReset={subToReset}
+          />
+        </div>
+      </div>
     </div>
   )
 }

@@ -19,7 +19,6 @@ function blanked(input: Answers) {
 }
 
 export default function Table(props: {
-  id: string
   data: Answers
   cols: string[]
   rows: string[]
@@ -56,8 +55,6 @@ export default function Table(props: {
   return (
     <div>
       <MemoisedTable
-        key={props.id}
-        id={props.id}
         ref={hotRef}
         data={data.current}
         rowHeaders={props.rows}
