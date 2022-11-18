@@ -1,57 +1,76 @@
-import { useState } from "react"
+import { useCallback, useRef, useState } from "react"
 import Table from "./components/Table"
 import { Button } from "@mantine/core"
+import useSubscription from "./utils/useSubscription"
 
 function App() {
   const [checked, setChecked] = useState(false)
-  const [show, setShow] = useState(false)
 
+  const [subToShowAnswers, showAnswersEvent] = useSubscription()
+  const [subToReset, resetEvent] = useSubscription()
   return (
     <div className='mx-8 my-6'>
       <Button
         variant='outline'
-        className='my-2'
+        className='my-2 mr-2'
         onClick={() => setChecked((prev) => !prev)}
       >
         Check Answers
       </Button>
 
-      {/* <Button
+      <Button
         variant='outline'
         color='yellow'
-        className='my-2'
-        onClick={() => setShow((prev) => !prev)}
+        className='my-2 mr-2'
+        onClick={showAnswersEvent}
       >
         Show Answers
-      </Button> */}
+      </Button>
+
+      <Button
+        variant='outline'
+        color='red'
+        className='my-2 mr-2'
+        onClick={resetEvent}
+      >
+        Clear Answers
+      </Button>
 
       <Table
+        id='1'
         data={artikels}
         cols={artikelCols}
         rows={artikelRows}
         checked={checked}
-        show={show}
+        subToShowAnswers={subToShowAnswers}
+        subToReset={subToReset}
       />
       <Table
+        id='2'
         data={pronouns}
         cols={pronounCols}
         rows={artikelRows}
         checked={checked}
-        show={show}
+        subToShowAnswers={subToShowAnswers}
+        subToReset={subToReset}
       />
       <Table
+        id='3'
         data={adjectivesIndefinit}
         cols={adjectivesCols}
         rows={adjectivesRows}
         checked={checked}
-        show={show}
+        subToShowAnswers={subToShowAnswers}
+        subToReset={subToReset}
       />
       <Table
+        id='4'
         data={adjectivesDefinit}
         cols={adjectivesCols}
         rows={adjectivesRows}
         checked={checked}
-        show={show}
+        subToShowAnswers={subToShowAnswers}
+        subToReset={subToReset}
       />
     </div>
   )
