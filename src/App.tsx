@@ -50,7 +50,7 @@ function App() {
       <Table
         data={pronouns}
         cols={pronounCols}
-        rows={artikelRows}
+        rows={pronounRows}
         checked={checked}
         subToShowAnswers={subToShowAnswers}
         subToReset={subToReset}
@@ -84,10 +84,9 @@ function App() {
   )
 }
 
-const artikelCols = ["M", "F", "N", "PL", "M", "F", "N"]
-const artikelRows = ["Nom", "Akk", "Dat"]
+const artikelCols = ["der", "die", "das", "die", "ein", "eine", "ein"]
+const artikelRows = ["Akk", "Dat"]
 const artikels = [
-  ["der", "die", "das", "die", "ein", "eine", "ein"],
   ["den", "die", "das", "die", "einen", "eine", "ein"],
   ["dem", "der", "dem", "den", "einem", "einer", "einem"],
 ]
@@ -103,6 +102,7 @@ const pronounCols = [
   "they",
   "you (plural informal)",
 ]
+const pronounRows = ["Nom", "Akk", "Dat"]
 const pronouns = [
   ["ich", "du", "Sie", "er", "sie", "es", "wir", "sie", "ihr"],
   ["mich", "dich", "Sie", "ihn", "sie", "es", "uns", "sie", "euch"],
