@@ -1,5 +1,61 @@
 import { useState } from "react"
 import Table from "./components/Table"
+import { Button } from "@mantine/core"
+
+function App() {
+  const [checked, setChecked] = useState(false)
+  const [show, setShow] = useState(false)
+
+  return (
+    <div className='mx-8 my-6'>
+      <Button
+        variant='outline'
+        className='my-2'
+        onClick={() => setChecked((prev) => !prev)}
+      >
+        Check Answers
+      </Button>
+
+      {/* <Button
+        variant='outline'
+        color='yellow'
+        className='my-2'
+        onClick={() => setShow((prev) => !prev)}
+      >
+        Show Answers
+      </Button> */}
+
+      <Table
+        data={artikels}
+        cols={artikelCols}
+        rows={artikelRows}
+        checked={checked}
+        show={show}
+      />
+      <Table
+        data={pronouns}
+        cols={pronounCols}
+        rows={artikelRows}
+        checked={checked}
+        show={show}
+      />
+      <Table
+        data={adjectivesIndefinit}
+        cols={adjectivesCols}
+        rows={adjectivesRows}
+        checked={checked}
+        show={show}
+      />
+      <Table
+        data={adjectivesDefinit}
+        cols={adjectivesCols}
+        rows={artikelRows}
+        checked={checked}
+        show={show}
+      />
+    </div>
+  )
+}
 
 const artikelCols = ["M", "F", "N", "PL", "M", "F", "N"]
 const artikelRows = ["Nom", "Akk", "Dat"]
@@ -9,7 +65,6 @@ const artikels = [
   ["dem", "der", "dem", "den", "einem", "einer", "einem"],
 ]
 
-// pronounCols = I	you (informal)	You (formal)	he	she	it	we	they	you (plural informal)
 const pronounCols = [
   "I",
   "you (informal)",
@@ -40,39 +95,5 @@ const adjectivesIndefinit = [
   ["en", "e", "es", "e"],
   ["en", "en", "en", "en"],
 ]
-
-function App() {
-  const [checked, setChecked] = useState(false)
-
-  return (
-    <div className=''>
-      <button onClick={() => setChecked((prev) => !prev)}>Check Answers</button>
-      <Table
-        data={artikels}
-        cols={artikelCols}
-        rows={artikelRows}
-        checked={checked}
-      />
-      <Table
-        data={pronouns}
-        cols={pronounCols}
-        rows={artikelRows}
-        checked={checked}
-      />
-      <Table
-        data={adjectivesIndefinit}
-        cols={adjectivesCols}
-        rows={adjectivesRows}
-        checked={checked}
-      />
-      <Table
-        data={adjectivesDefinit}
-        cols={adjectivesCols}
-        rows={artikelRows}
-        checked={checked}
-      />
-    </div>
-  )
-}
 
 export default App

@@ -1,7 +1,8 @@
 import { HotTable } from "@handsontable/react"
 import { registerAllModules } from "handsontable/registry"
 import "handsontable/dist/handsontable.full.min.css"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
+import { flushSync } from "react-dom"
 
 // register Handsontable's modules
 registerAllModules()
@@ -16,13 +17,27 @@ export default function Table(props: {
   cols: string[]
   rows: string[]
   checked: boolean
+  show: boolean
 }) {
   const checked = props.checked
   const answers = useRef<Answers>(blanked(props.data))
+  const hotRef = useRef<HotTable>(null)
+  //   useEffect(() => {
+  //     debugger
+  //     const hot = hotRef.current?.hotInstance
+
+  //     if (!hot) return
+  //     if (props.show) {
+  //       hot.loadData(props.data)
+  //       return
+  //     }
+  //     hot.loadData(blanked(props.data))
+  //   }, [props.show])
 
   return (
     <div>
       <HotTable
+        ref={hotRef}
         data={answers.current}
         rowHeaders={props.rows}
         colHeaders={props.cols}
