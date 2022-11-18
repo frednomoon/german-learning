@@ -1,35 +1,44 @@
 import { HotTable } from "@handsontable/react"
 import { registerAllModules } from "handsontable/registry"
 import "handsontable/dist/handsontable.full.min.css"
+import { useRef, useState } from "react"
 
 // register Handsontable's modules
 registerAllModules()
 
-// der	die	das	die	ein	eine	ein
-// den	die	das	die	einen	eine	ein
-// dem	der	dem	den	einem	einer	einem
-const artikels = [
-  ["der", "die", "das", "die", "ein", "eine", "ein"],
-  ["den", "die", "das", "die", "einen", "eine", "ein"],
-  ["dem", "der", "dem", "den", "einem", "einer", "einem"],
-]
+type Answers = string[][]
+function blanked(input: Answers) {
+  return input.map((row) => row.map(() => ""))
+}
 
-// ich	du	Sie	er	sie	es	wir	sie	ihr
-// mich	dich	Sie	ihn	sie	es	uns	sie	euch
-// mir	dir	Ihnen	ihm	ihr	ihm	uns	ihnen	euch
-const pronouns = [
-  ["ich", "du", "Sie", "er", "sie", "es", "wir", "sie", "ihr"],
-  ["mich", "dich", "Sie", "ihn", "sie", "es", "uns", "sie", "euch"],
-  ["mir", "dir", "Ihnen", "ihm", "ihr", "ihm", "uns", "ihnen", "euch"],
-]
-export default function Table() {
+export default function Table(props: {
+  data: Answers
+  cols: string[]
+  rows: string[]
+  checked: boolean
+}) {
+  const checked = props.checked
+  const answers = useRef<Answers>(blanked(props.data))
+
   return (
-    <HotTable
-      data={artikels}
-      rowHeaders={true}
-      colHeaders={true}
-      height='auto'
-      licenseKey='non-commercial-and-evaluation' // for non-commercial use only
-    />
+    <div>
+      <HotTable
+        data={answers.current}
+        rowHeaders={props.rows}
+        colHeaders={props.cols}
+        afterChange={(changes, source) => {
+          console.log(changes)
+        }}
+        cells={(row, col) => {
+          if (!checked) return {}
+          const correct = answers.current[row][col] === props.data[row][col]
+          return {
+            className: correct ? "text-green-500" : "text-red-500",
+          }
+        }}
+        height='auto'
+        licenseKey='non-commercial-and-evaluation' // for non-commercial use only
+      />
+    </div>
   )
 }
