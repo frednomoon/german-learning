@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-size: 24px;
+  line-height: 24px;
+
+  color: #000;
+  background: #e6ddde;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+h2,
+h3 {
+  margin: 0.3em 0;
+}
+
+.handsontable th {
+  background: #916a70;
+  color: white;
+  &.ht__highlight {
+    color: black;
+  }
+}
+
+th,
+td {
+  border-color: black !important;
+}

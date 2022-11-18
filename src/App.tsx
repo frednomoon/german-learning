@@ -1,6 +1,6 @@
 import { useState } from "react"
 import Table from "./components/Table"
-import { Button } from "@mantine/core"
+import { Button, Switch } from "@mantine/core"
 import useSubscription from "./utils/useSubscription"
 
 function App() {
@@ -9,33 +9,35 @@ function App() {
   const [subToReset, resetEvent] = useSubscription()
 
   return (
-    <div className='mx-8 my-6'>
+    <div className='mx-8 my-10 max-w-[700px]'>
       <h1>German Grammar Memory Training</h1>
-      <Button
-        variant='outline'
-        className='my-2 mr-2'
-        onClick={() => setChecked((prev) => !prev)}
-      >
-        Check Answers
-      </Button>
+      <div className='bg-primary px-4 my-2 rounded'>
+        <Button
+          variant='outline'
+          className='my-2 mr-2'
+          onClick={() => setChecked((prev) => !prev)}
+        >
+          Check Answers
+        </Button>
 
-      <Button
-        variant='outline'
-        color='yellow'
-        className='my-2 mr-2'
-        onClick={showAnswersEvent}
-      >
-        Show Answers
-      </Button>
+        <Button
+          variant='outline'
+          color='yellow'
+          className='my-2 mr-2'
+          onClick={showAnswersEvent}
+        >
+          Show Answers
+        </Button>
 
-      <Button
-        variant='outline'
-        color='red'
-        className='my-2 mr-2'
-        onClick={resetEvent}
-      >
-        Clear Answers
-      </Button>
+        <Button
+          variant='outline'
+          color='red'
+          className='my-2 mr-2'
+          onClick={resetEvent}
+        >
+          Clear Answers
+        </Button>
+      </div>
 
       <h2 className='mt-4'>Artikels</h2>
       <Table
