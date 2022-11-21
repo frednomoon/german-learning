@@ -14,24 +14,25 @@ function blanked(input: Answers) {
   const width = input[0].length
   const output = new Array(length).fill(0).map(() => new Array(width).fill(""))
   return output
-  //   const unreferenced = JSON.parse(JSON.stringify(input)) as Answers
-  //   return unreferenced.map((row) => row.map(() => ""))
 }
 
 export default function Table(props: {
-  data: Answers
-  cols: string[]
-  rows: string[]
+  data: {
+    answers: Answers
+    columns: { value: string; level: number }[]
+    rows: { value: string; level: number }[]
+  }
+  level: number
   checked: boolean
   subToShowAnswers: (callback: () => void) => () => void
   subToReset: (callback: () => void) => () => void
 }) {
-  const data = useRef<Answers>(blanked(props.data))
+  const data = useRef<Answers>(blanked(props.data.answers))
   const hotRef = useRef<HotTable>(null)
 
   useEffect(() => {
     const showData = () => {
-      props.data.forEach((row, i) => {
+      props.data.answers.forEach((row, i) => {
         row.forEach((cell, j) => {
           hotRef.current?.hotInstance?.setDataAtCell(i, j, cell)
         })
@@ -43,7 +44,7 @@ export default function Table(props: {
 
   useEffect(() => {
     const resetData = () => {
-      props.data.forEach((row, i) => {
+      props.data.answers.forEach((row, i) => {
         row.forEach((_, j) => {
           hotRef.current?.hotInstance?.setDataAtCell(i, j, "")
         })
@@ -52,18 +53,32 @@ export default function Table(props: {
     return props.subToReset(resetData)
   }, [])
 
+  const rows = props.data.rows.filter((row) => row.level <= props.level)
+  const columns = props.data.columns.filter(
+    (column) => column.level <= props.level
+  )
+
+  if (rows.length < 1 || columns.length < 1) {
+    return null
+  }
+
   return (
     <div>
       <MemoisedTable
         ref={hotRef}
         data={data.current}
-        rowHeaders={props.rows}
-        colHeaders={props.cols}
+        rowHeaders={props.data.rows
+          .filter((row) => row.level <= props.level)
+          .map((row) => row.value)}
+        colHeaders={props.data.columns
+          .filter((row) => row.level <= props.level)
+          .map((row) => row.value)}
         cells={(row, col) => {
           if (!props.checked) {
             return {}
           }
-          const correct = data.current[row][col] === props.data[row][col]
+          const correct =
+            data.current[row][col] === props.data.answers[row][col]
 
           return {
             className: correct ? "text-green-500" : "text-red-500",
