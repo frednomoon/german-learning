@@ -9,16 +9,17 @@ import adjectivesIndefinit from "./schemas/adjectivesIndefinit"
 import adjectivesDefinit from "./schemas/adjectivesDefinit"
 import adjectivesOhne from "./schemas/adjectivesOhne"
 
+const level = 5
 function App() {
   const [checked, setChecked] = useState(false)
-  const [level, setLevel] = useState(1)
+
   const [subToShowAnswers, showAnswersEvent] = useSubscription()
   const [subToReset, resetEvent] = useSubscription()
 
   return (
     <div className='mx-8 my-10 max-w-[700px]'>
       <h1>German Grammar Memory Training</h1>
-      <h2>Level {level}</h2>
+      {/* <h2>Level {level}</h2> */}
       <div className='bg-primary px-4 my-2 rounded'>
         <Button
           variant='outline'
@@ -45,11 +46,11 @@ function App() {
         >
           Clear Answers
         </Button>
-        <NativeSelect
+        {/* <NativeSelect
           data={new Array(5).fill(0).map((_, i) => `${i + 1}`)}
           value={level}
           onChange={(e) => setLevel(Number(e.target.value))}
-        />
+        /> */}
       </div>
 
       <h2 className='mt-4'>Artikels</h2>
